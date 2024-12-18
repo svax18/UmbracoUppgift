@@ -1,0 +1,34 @@
+﻿
+@using Umbraco.Cms.Web.Common.PublishedModels
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.HomePage>
+
+@using Umbraco.Cms.Core.Models
+@{
+    
+}
+    
+
+
+
+<header class="mb-5">
+    <div class="border">
+        <div class="row row-cols-2">
+            <div class="one" style="width:50%;height:50%; ">
+                <h1 class="text-center">@Model.Value("textLorem")</h1>
+                <h1 class="text-center">@Model.Value("try2")</h1>
+                <p class="text-center">@Model.Value("smallText")</p>
+                <div style="text-align:center">
+                    <a href="https://localhost:44329/produkts/white-t-shirt/" class="btn btn-primary">Go to sales item</a>
+                </div>
+
+            </div>
+            <div class="two " style="width:50%;height:50%; ">
+                <img src="@(Url.GetCropUrl(Model.HeroImage,"banner"))" class="card-img-top" alt="...">
+            </div>
+            <div class="three " style="width:50%;height:50%; ">
+            </div>
+
+        </div>
+    </div>
+</header>

@@ -1,0 +1,63 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@using System.IO;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.HomePage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models;
+@{
+    Layout = "MasterTemplate.cshtml";
+
+    var produkts = Umbraco.ContentAtXPath("//produktsPage2/produktDetailsPage2").OfType<ContentModels.ProduktDetailsPage2>();
+    
+    var produkts2 = Umbraco.ContentAtXPath("//mediaElement").OfType<ContentModels.MediaElement>();
+
+    
+    
+    
+}
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="@Url.Content("~/css/Main.css")">
+    </head>
+
+
+
+
+    @await Html.PartialAsync("Hero")
+
+<body>
+
+    <div class="container text-center">
+        @foreach (var item in Model.MediaPicker)
+        {
+            if (Model.HasValue("MediaPicker")) 
+            {
+                @Html.GetBlockListHtml(Model, "MediaPicker");         
+            }
+            
+        }
+    
+        <div class="row row-cols-4">
+            @foreach (var produkt in produkts){
+            
+                <!-- dynamiskt-->
+
+
+                <div class="col">
+                    <div class="card" ;">
+                    
+                        <img src="@(Url.GetCropUrl(produkt.ContentImg,"banner"))" class="card-img-top" alt="...">
+                        <div class="card-body">
+                        
+                            <h5 class="card-title">@produkt.Name</h5>
+                            <h3 class="left">@produkt.Value("price")</h3>
+                            <p class="text-left">@produkt.Value("informationP")</p>
+                            <a href="@produkt.Url()" class="btn btn-primary">Go to sales item</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>

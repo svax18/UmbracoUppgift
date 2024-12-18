@@ -1,0 +1,68 @@
+﻿@using Examine
+@using Umbraco.Cms.Web.Common;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Extensions;
+@inject IExamineManager ExamineManager;
+
+@model (string searchTerm, UmbracoHelper Umbraco)
+
+@if (Model.searchTerm=="")
+{
+    <partial name="Search/_SearchBox" model="Model.searchTerm" />
+}
+
+
+
+@if(ExamineManager.TryGetIndex("ExternalIndex", out var index))
+    {
+    var results = index.Searcher.Search(Model.searchTerm);
+
+
+    
+
+    
+
+    if (results?.Any() ?? false)
+    {
+        <p>@results?.Count() Antal träffar på den sökningen</p>
+        <div class="row">
+            <ul class="list-unstyled">
+
+                
+                @foreach(var result in results)
+                {
+                    
+                    var content = Model.Umbraco.Content(result.Id);
+                    var test = @content.Value("Uploader");                    
+                    <!--<img src="(Url.GetCropUrl(content.ContentImg, "banner"))" alt="...">-->
+                    <div class="card" style="width:70% ;">     
+                        
+                        <div class="card-body">
+                            
+                            <a href="test"></a>
+                            <h5 class="card-title">@content.Name</h5>
+                            <h3 class="left">@content.Value("price")</h3>
+                            
+                            <img src="@content.Value("Uploader")" width="200" height="200" />
+                            <p class="text-left">@content.Value("informationP")</p>
+                            <a href="@content.Url()" class="btn btn-primary">Go to sales item</a>
+                        </div>
+                    </div>
+                }
+            </ul>
+        </div>
+    }
+    else
+    {
+        <div>
+            <div class="row">
+                <div class="p-8 border border-dark bg-light">
+                    <h5>
+                        Du har 0 resultat
+                    </h5>
+                </div>
+            </div>
+        </div>
+    }
+}

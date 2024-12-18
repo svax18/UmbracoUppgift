@@ -1,0 +1,25 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ProduktDetailsPage2>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "MasterTemplate.cshtml";
+}
+
+<header class="mb-5">
+    <div class="border">
+        <div class="row row-cols-2">
+            <div class="two " style="width:50%;height:50%; ">
+                <img src="@(Url.GetCropUrl(Model.ContentImg,"banner"))" class="card-img-top" alt="...">
+            </div>
+            <div class="one" style="width:50%;height:50%; ">
+                <div style="text-align:left">
+                    <h1 class="text-left">@Model.Name</h1>
+                    <p class="text-left">@Model.Value("informationP")</p>
+                    <h3 class="left">@Model.Value("price")</h3>
+                    <a href="#" class="btn btn-primary">Place item in cart</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
